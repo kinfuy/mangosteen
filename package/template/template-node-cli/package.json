@@ -1,0 +1,36 @@
+{
+  "name": "template-node-cli",
+  "version": "0.0.1",
+  "description": "template-node-cli",
+  "scripts": {
+    "build": "gulp --require sucrase/register/ts --gulpfile build/gulpfile.ts",
+    "clear": "rimraf dist",
+    "link": "cd dist && npm link",
+    "push": "git push gitee master && git push github master",
+    "update:version": "sucrase-node build/utils/version.ts"
+  },
+  "author": "alqmc",
+  "license": "MIT",
+  "devDependencies": {
+    "@alqmc/build-ts": "^0.0.8",
+    "@alqmc/build-utils": "^0.0.3",
+    "@alqmc/eslint-config": "^0.0.4",
+    "@types/eslint": "^8.4.3",
+    "@types/gulp": "^4.0.9",
+    "@types/minimist": "^1.2.2",
+    "@types/node": "^17.0.21",
+    "@types/prompts": "^2.0.14",
+    "gulp": "^4.0.2",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.70.1",
+    "rollup-plugin-typescript2": "^0.31.2",
+    "sucrase": "^3.20.3",
+    "tslib": "^2.3.1",
+    "typescript": "^4.6.3"
+  },
+  "dependencies": {
+    "kolorist": "^1.5.1",
+    "minimist": "^1.2.6",
+    "prompts": "^2.4.2"
+  }
+}

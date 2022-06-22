@@ -1,0 +1,22 @@
+{
+  "name": "mangosteen-cli",
+  "version": "0.0.1",
+  "private": false,
+  "description": "alqmc 模板生成工具",
+  "license": "MIT",
+  "author": "alqmc",
+  "files": [
+    "index.js",
+    "template",
+    "README.md",
+    "package.json"
+  ],
+  "bin": {
+    "mo": "index.js"
+  },
+  "dependencies": {
+    "kolorist": "^1.5.1",
+    "minimist": "^1.2.6",
+    "prompts": "^2.4.2"
+  }
+}

@@ -1,0 +1,10 @@
+{
+    "scripts": {
+        "lint:js": "eslint -c ./.eslintrc.js --fix --ext .jsx,.js,.vue \"src/**/*.{jsx,js,vue}\" "
+    },
+    "dependencies": {},
+    "devDependencies": {
+        "@alqmc/eslint-config": "^0.0.4",
+        "prettier": "^2.6.2"
+    }
+}
