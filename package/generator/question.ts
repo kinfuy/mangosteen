@@ -22,6 +22,7 @@ interface UserConfig {
   commitlint?: boolean;
   eslint?: boolean;
   stylelint?: boolean;
+  readme?: boolean;
   packageManager?: 'pnpm' | 'yarn' | 'npm';
 }
 
@@ -115,6 +116,14 @@ export const getUserConfig = async ({ targetDir }: UserConfigOptions) => {
       name: 'eslint',
       type: 'toggle',
       message: 'install eslint?',
+      initial: true,
+      active: 'Yes',
+      inactive: 'No',
+    },
+    {
+      name: 'readme',
+      type: 'toggle',
+      message: 'add README.md?',
       initial: true,
       active: 'Yes',
       inactive: 'No',

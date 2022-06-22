@@ -36,6 +36,7 @@ const init = async () => {
     template,
     commitlint,
     stylelint,
+    readme,
     packageManager = 'pnpm',
   } = config;
 
@@ -63,6 +64,9 @@ const init = async () => {
   }
   if (stylelint) {
     render(root, templateRoot, 'stylelint');
+  }
+  if (readme) {
+    render(root, templateRoot, 'readme');
   }
   if (commitlint) {
     render(root, templateRoot, 'commitlint');
