@@ -2,19 +2,28 @@ import { join, resolve } from 'path';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import minimist from 'minimist';
 import { bgGreen, bgYellow, green } from 'kolorist';
+
 import { getUserConfig } from './generator/question';
 import { emptyDir, formatTargetDir } from './utils/utils';
 import { render } from './generator/render';
 import { run } from './generator/shell';
-
-const argv = minimist(process.argv.slice(2), { string: ['_'] });
-
 const cwd = process.cwd();
 const def = {
   defaultTargetDir: 'mangosteen-project',
 };
 
 const init = async () => {
+  const argv = minimist(process.argv.slice(2), {
+    string: ['_'],
+    alias: {
+      version: ['v', 'version'],
+    },
+  });
+  if (argv.version) {
+    const pkg = await import('./package.json');
+    console.log(`v${pkg.version}`);
+    return;
+  }
   const config = await getUserConfig({ targetDir: formatTargetDir(argv._[0]) });
   const {
     targetDir,

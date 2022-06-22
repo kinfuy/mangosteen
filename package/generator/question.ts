@@ -44,6 +44,9 @@ export const getUserConfig = async ({ targetDir }: UserConfigOptions) => {
         if (options.projectName && canSafelyOverwrite(options.projectName)) {
           return null;
         }
+        if (answer.targetDir && canSafelyOverwrite(answer.targetDir)) {
+          return null;
+        }
         return 'toggle';
       },
       message: () => `目录已经存在，是否覆盖改目录？`,
@@ -74,7 +77,7 @@ export const getUserConfig = async ({ targetDir }: UserConfigOptions) => {
       name: 'description',
       type: 'text',
       message: 'Project description',
-      initial: 'A Vue.js project',
+      initial: 'mangosteen cli project',
     },
     {
       name: 'author',

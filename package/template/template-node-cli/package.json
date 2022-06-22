@@ -1,7 +1,4 @@
 {
-  "name": "template-node-cli",
-  "version": "0.0.1",
-  "description": "template-node-cli",
   "scripts": {
     "build": "gulp --require sucrase/register/ts --gulpfile build/gulpfile.ts",
     "clear": "rimraf dist",
@@ -9,7 +6,6 @@
     "push": "git push gitee master && git push github master",
     "update:version": "sucrase-node build/utils/version.ts"
   },
-  "author": "alqmc",
   "license": "MIT",
   "devDependencies": {
     "@alqmc/build-ts": "^0.0.8",

@@ -8,7 +8,7 @@ const init = async () => {
     },
   });
   if (argv.version) {
-    console.log(`v${pkg.verison}`);
+    console.log(`v${pkg.version}`);
     return;
   }
 };

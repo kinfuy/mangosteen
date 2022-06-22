@@ -5,12 +5,6 @@
   "description": "alqmc 模板生成工具",
   "license": "MIT",
   "author": "alqmc",
-  "files": [
-    "index.js",
-    "template",
-    "README.md",
-    "package.json"
-  ],
   "bin": {
     "mo": "index.js"
   },
