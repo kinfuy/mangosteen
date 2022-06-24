@@ -1,6 +1,6 @@
 {
   "name": "mangosteen",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "alqmc 模板生成工具",
   "scripts": {
     "build": "gulp --require sucrase/register/ts --gulpfile build/gulpfile.ts",
