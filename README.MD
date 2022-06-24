@@ -24,7 +24,7 @@
 
 - ⚡️ 极简的个人模板生成工具
 
-### support template
+### Support template
 
 - 谷歌插件
 - vacode 插件

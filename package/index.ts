@@ -7,6 +7,7 @@ import { getUserConfig } from './generator/question';
 import { emptyDir, formatTargetDir } from './utils/utils';
 import { render } from './generator/render';
 import { run } from './generator/shell';
+import moPkg from './package.json';
 const cwd = process.cwd();
 const def = {
   defaultTargetDir: 'mangosteen-project',
@@ -20,8 +21,7 @@ const init = async () => {
     },
   });
   if (argv.version) {
-    const pkg = await import('./package.json');
-    console.log(`v${pkg.version}`);
+    console.log(`v${moPkg.version}`);
     return;
   }
   const config = await getUserConfig({ targetDir: formatTargetDir(argv._[0]) });

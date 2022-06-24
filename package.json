@@ -14,8 +14,8 @@
   "author": "alqmc",
   "license": "MIT",
   "devDependencies": {
-    "@alqmc/build-ts": "^0.0.8",
-    "@alqmc/build-utils": "^0.0.3",
+    "@alqmc/build-ts": "^0.0.9",
+    "@alqmc/build-utils": "^0.0.5",
     "@alqmc/eslint-config": "^0.0.4",
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-angular": "^8.3.4",
