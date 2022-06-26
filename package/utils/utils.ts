@@ -56,12 +56,14 @@ export const isValidPackageName = (projectName: string) => {
  * @param dir
  * @returns
  */
-export const emptyDir = (dir: string) => {
+export const emptyDir = (dir: string, exclude?: string[]) => {
   if (!existsSync(dir)) {
     return;
   }
   for (const file of readdirSync(dir)) {
-    rmSync(resolve(dir, file), { recursive: true, force: true });
+    if (!exclude || !exclude.includes(file)) {
+      rmSync(resolve(dir, file), { recursive: true, force: true });
+    }
   }
 };
 

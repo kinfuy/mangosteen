@@ -26,6 +26,8 @@
 
 ### Support template
 
+#### [ Mangosteen（山竹) 模板库](https://github.com/alqmc/mo-templates)
+
 - 谷歌插件
 - vacode 插件
 - node-cli

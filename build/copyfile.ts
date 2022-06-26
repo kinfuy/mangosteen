@@ -9,7 +9,6 @@ export const copyFiles = async () => {
       resolve(outputPath, 'package.json')
     ),
     copyFile(resolve(rootPath, 'README.md'), resolve(outputPath, 'README.md')),
-    copyDir(resolve(enterPath, 'template'), resolve(outputPath, 'template')),
     copyDir(resolve(enterPath, 'assets'), resolve(outputPath, 'assets')),
   ]);
 };

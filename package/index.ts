@@ -8,6 +8,7 @@ import { emptyDir, formatTargetDir } from './utils/utils';
 import { render } from './generator/render';
 import { run } from './generator/shell';
 import moPkg from './package.json';
+import { downloadRepo } from './generator/update';
 const cwd = process.cwd();
 const def = {
   defaultTargetDir: 'mangosteen-project',
@@ -17,9 +18,14 @@ const init = async () => {
   const argv = minimist(process.argv.slice(2), {
     string: ['_'],
     alias: {
-      version: ['v', 'version'],
+      version: ['v'],
+      update: ['up'],
     },
   });
+  if (argv._[0] === 'update') {
+    downloadRepo();
+    return;
+  }
   if (argv.version) {
     console.log(`v${moPkg.version}`);
     return;
@@ -55,9 +61,13 @@ const init = async () => {
   };
   writeFileSync(resolve(root, 'package.json'), JSON.stringify(pkg, null, 2));
 
-  const templateRoot = resolve(__dirname, 'template');
+  const templateRoot = resolve(__dirname, 'mo-templates/templates');
+
+  if (!existsSync(templateRoot)) {
+    await downloadRepo();
+  }
   if (template) {
-    render(root, templateRoot, `template-${template}`);
+    render(root, templateRoot, `${template}`);
   }
   if (eslint) {
     render(root, templateRoot, 'eslint');
