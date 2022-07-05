@@ -1,5 +1,5 @@
 import { join, resolve } from 'path';
-import { existsSync, mkdirSync, writeFileSync } from 'fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import minimist from 'minimist';
 import { bgGreen, bgYellow, green } from 'kolorist';
 
@@ -9,7 +9,9 @@ import { render } from './generator/render';
 import { run } from './generator/shell';
 import moPkg from './package.json';
 import { downloadRepo } from './generator/update';
+import { defalutConfig } from './config';
 const cwd = process.cwd();
+const moConfigPath = resolve(__dirname, 'mo-templates/templates/config.json');
 const def = {
   defaultTargetDir: 'mangosteen-project',
 };
@@ -30,7 +32,15 @@ const init = async () => {
     console.log(`v${moPkg.version}`);
     return;
   }
-  const config = await getUserConfig({ targetDir: formatTargetDir(argv._[0]) });
+  let moConfig = defalutConfig;
+  try {
+    const fileBuffer = readFileSync(moConfigPath, 'utf-8');
+    moConfig = JSON.parse(fileBuffer.toString());
+  } catch (error) {}
+  const config = await getUserConfig({
+    targetDir: formatTargetDir(argv._[0]),
+    moConfig,
+  });
   const {
     targetDir,
     overwrite,

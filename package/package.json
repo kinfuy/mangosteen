@@ -1,6 +1,6 @@
 {
   "name": "mangosteen-cli",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "private": false,
   "description": "alqmc 模板生成工具",
   "license": "MIT",

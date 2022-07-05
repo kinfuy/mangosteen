@@ -6,12 +6,14 @@ import {
   isValidPackageName,
   toValidPackageName,
 } from '../utils/utils';
+import type { CustomQuestions, MoConfig } from '../config';
 
 interface UserConfigOptions {
+  moConfig: MoConfig;
   targetDir?: string;
 }
 
-interface UserConfig {
+interface UserConfig extends Record<string, any> {
   targetDir?: string;
   projectName?: string;
   packageName?: string;
@@ -26,11 +28,14 @@ interface UserConfig {
   packageManager?: 'pnpm' | 'yarn' | 'npm';
 }
 
-export const getUserConfig = async ({ targetDir }: UserConfigOptions) => {
+export const getUserConfig = async ({
+  targetDir,
+  moConfig,
+}: UserConfigOptions) => {
   const answer: UserConfig = {
     targetDir,
   };
-  const questions: Array<prompts.PromptObject<string>> = [
+  const baseQuestions: Array<prompts.PromptObject<string>> = [
     {
       name: 'projectName',
       type: targetDir ? null : 'text',
@@ -85,17 +90,10 @@ export const getUserConfig = async ({ targetDir }: UserConfigOptions) => {
       type: 'text',
       message: 'Author',
     },
-    {
-      name: 'template',
-      type: 'select',
-      message: 'Please Choose a template',
-      choices: [
-        { title: 'node-cli', value: 'node-cli' },
-        { title: 'chrome-extension', value: 'chrome-extension' },
-        { title: 'svg-icon', value: 'svg-icon' },
-      ],
-      initial: 0,
-    },
+  ];
+  const customQuestions: Array<prompts.PromptObject<string>> =
+    generaterQuestions(moConfig);
+  const ruleQuestions: Array<prompts.PromptObject<string>> = [
     {
       name: 'commitlint',
       type: 'toggle',
@@ -140,6 +138,11 @@ export const getUserConfig = async ({ targetDir }: UserConfigOptions) => {
       initial: 0,
     },
   ];
+  const questions: Array<prompts.PromptObject<string>> = [
+    ...baseQuestions,
+    ...customQuestions,
+    ...ruleQuestions,
+  ];
   try {
     const answers = (await prompts(questions, {
       onCancel: () => {
@@ -153,3 +156,33 @@ export const getUserConfig = async ({ targetDir }: UserConfigOptions) => {
   }
   return answer;
 };
+
+/**
+ * 验证条件
+ * @param option
+ * @returns
+ */
+const generaterCondition =
+  (option: CustomQuestions) => (pre: any, config: UserConfig) => {
+    const show = option.condition?.some((x) =>
+      x.rule.every((rule) => config[rule.key] === rule.value)
+    );
+    if (show) return option.type;
+    return null;
+  };
+
+/**
+ * 生成用户配置问题
+ * @param vixConfig
+ * @returns
+ */
+export const generaterQuestions = (moConfig: MoConfig) =>
+  moConfig.map((x) => {
+    if (x.condition && x.condition.length > 0) {
+      return {
+        ...x,
+        type: generaterCondition(x),
+      } as CustomQuestions;
+    }
+    return x;
+  });
